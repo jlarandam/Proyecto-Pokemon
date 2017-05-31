@@ -1,0 +1,7 @@
+Bomba agua,80,agua
+Placaje,45,normal
+Latigo Cepa,50,planta
+Lanzallamas,75,fuego
+Terremoto,67,normal
+Vuelo,75,volador
+Mordisco,69,normal

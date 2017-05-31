@@ -1,0 +1,2 @@
+1,Charizard,fuego,serio,52,34,140,Lanzallamas,Terremoto,Placaje,Vuelo
+2,Blastoise,agua,audaz,45,70,200,Terremoto,Bomba agua,Latigo Cepa,Mordisco

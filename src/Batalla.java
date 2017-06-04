@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import static com.sun.java.accessibility.util.EventID.MOUSE;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,9 @@ public class Batalla extends JFrame {
     int turno=0;
     int fase=1;
     int mov;
+    int desX=0;
+    int desY=0;
+    
     
     public Batalla(Pokemon pokemon1, Pokemon pokemon2) {
         this.pokemon1=pokemon1;
@@ -99,6 +103,9 @@ public class Batalla extends JFrame {
     
     public class PanelBatalla extends JPanel implements ActionListener, MouseListener {
         Timer timer;
+        JLabel etiqueta = new JLabel();
+        int x=0;
+        int y=0;
         
         public PanelBatalla(Pokemon pokemon1,Pokemon pokemon2){
             this.addMouseListener(this);
@@ -118,6 +125,7 @@ public class Batalla extends JFrame {
                
                     if(key==KeyEvent.VK_1){
                         mov=0;
+                        System.out.println("nigs");
                     }
                     if(key==KeyEvent.VK_2){
                        mov =1;
@@ -131,6 +139,39 @@ public class Batalla extends JFrame {
                 
                 if(key==KeyEvent.VK_ENTER){
                     timer.start();
+                }
+                if(key==KeyEvent.VK_LEFT){
+                    desX-=173;
+                }
+                if(key==KeyEvent.VK_RIGHT){
+                    desX+=173;
+                }
+                if(key==KeyEvent.VK_DOWN){
+                    desY+=50;
+                }
+                if(key==KeyEvent.VK_UP){
+                    desY-=50;
+                }
+                if(key== KeyEvent.VK_K){
+                    //4to ataque
+                    if(desX==173&&desY==50){
+                        System.out.println("hidcs");
+                    }
+                    //1er ataque
+                    if(desX==0&&desY==0){
+                        System.out.println("primero");
+                    }
+                    //2do ataque
+                    if(desX==173&&desY==0){
+                        System.out.println("segundo");
+                    }
+                    //3er ataque
+                    if(desX==0&&desY==50){
+                        System.out.println("tercero");
+                    }
+                    turno++;
+                    //if(turno%2==0)(primer jugador hace el movimiento)
+                    //if(turno%2!=0)(segundo jugador hace movimiento)
                 }
             }
         }
@@ -153,17 +194,35 @@ public class Batalla extends JFrame {
             g.setColor(Color.white);
             Font fuente=new Font("Dialog", Font.BOLD, 36);
             g.drawString("¿Qué debería hacer "+pokemon1.getNombre()+" ?", 100, 590);
+            g.drawString("Seleccione la tecla corespondiente al ataque", 100, 620);
+            g.drawString("O presione 'k' para escoger el ataque", 100, 640);
             
-            g.fillRect(580,560, 100, 50);
+            Color c=new Color(225, 217, 228);
+            Color a=new Color(200, 168, 72);
+            g.setColor(a);
+            
+            g.fillRect(530,560, 100, 50);
             g.fillRect(700,560, 100, 50);
-            g.fillRect(580,615, 100, 50);
+            g.fillRect(530,615, 100, 50);
             g.fillRect(700,615, 100, 50);
             
+            
+            g.setColor(a);
+            
+            
+            Image fS = loadImagen("FSel.png");
+            g.drawImage(fS, desX+467, desY+567, null);
+            
+            g.setColor(Color.red);
+            
+            //g.fillRect(desX+430, desY+560, 100, 50);
+            
             g.setColor(Color.black);
-//            g.drawString(pokemon1.getMovimientos()[0]+".", 605, 590);
-//            g.drawString(pokemon1.getMovimientos()[1]+".", 725, 590);
-//            g.drawString(pokemon1.getMovimientos()[2]+".", 605, 645);
-//            g.drawString(pokemon1.getMovimientos()[3]+".", 725, 645);
+            g.drawString("1. "+pokemon1.getMovimientos()[0].getNombre(), 543, 590);
+            g.drawString("2. "+pokemon1.getMovimientos()[1].getNombre(), 715, 590);
+            g.drawString("3. "+pokemon1.getMovimientos()[2].getNombre(), 550, 645);
+            g.drawString("4. "+pokemon1.getMovimientos()[3].getNombre(), 725, 645);
+            
             
 //            while(vida1>0 && vida2>0){
 //               
@@ -215,21 +274,15 @@ public class Batalla extends JFrame {
         
         @Override
         public void mouseClicked(MouseEvent e) {
-            Rectangle objeto = new Rectangle(580,560, 100, 50);
-            //System.out.println("perf");
-            Point mp =e.getPoint();
-            if(getBounds().contains(objeto)){
-                timer.stop();
-                System.out.println("jdi");
-                System.out.println(e.getPoint());
-            }
+            
+            
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            //System.out.println("jdfis");
             
         }
+        
 
         @Override
         public void mouseReleased(MouseEvent e) {
@@ -296,4 +349,6 @@ public class Batalla extends JFrame {
             return ((pokemon2.getATK()*move.getDMG()/20)-pokemon1.getDEF())*multiplicador;
         }
     }
+    
 }
+
